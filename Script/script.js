@@ -1,7 +1,7 @@
 'use strict';
 
 let money = 35000, 
-income = 'бригада', 
+income = 'Бригада', 
 addExpenses = 'Налоги, Аренда, Питание, Досуг, Связь, Подарки, Транспорт', 
 deposit = true, 
 mission = 80000, 
@@ -21,9 +21,9 @@ compulsoryExpenses2 = prompt('Введите вторую обязательну
 cost2 = Number(prompt('Введите предполагаемую стоимость:', '3000'));
 
 //Обработка данных
-budgetMonth = cost1 + cost2;
-period = Math.ceil(mission / (money - budgetMonth));
-budgetDay = Math.floor((money - budgetMonth) / 30);
+budgetMonth = money - (cost1 + cost2);
+period = Math.ceil(mission / budgetMonth);
+budgetDay = Math.floor(budgetMonth / 30);
 
 //Вывод результатов в консоль
 console.log(typeof money);
