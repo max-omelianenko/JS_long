@@ -3,13 +3,13 @@
 let money, 
 income = 'Бригада', 
 addExpenses, 
-deposit = true, 
+deposit, 
 mission = 80000, 
 period,
 budgetDay,
 compulsoryExpenses1, compulsoryExpenses2, 
 cost1, cost2,
-budgetMonth;
+accumulatedMonth;
 
 //Функции
 let showTypeOf = function(data){
@@ -39,9 +39,9 @@ let getExpensesMonth = function(b, c){
     return b + c;
 };
 
-
-
-
+let getTargetMonth = function(a, b){
+    return Math.ceil(a / b);
+};
 
 //Запрос данных от пользователя
 money = Number(prompt('Введите ваш месячный доход:', '45000'));
@@ -53,15 +53,8 @@ compulsoryExpenses2 = prompt('Введите вторую обязательну
 cost2 = Number(prompt('Введите предполагаемую стоимость:', '3000'));
 
 //Обработка данных
-budgetMonth = money - (cost1 + cost2);
-period = Math.ceil(mission / budgetMonth);
-budgetDay = Math.floor(budgetMonth / 30);
-
-//getExpensesMonth(cost1, cost2);
-//console.log('getExpensesMonth: ', getExpensesMonth);
-
-getAccumulatedMonth(money, cost1, cost2, getExpensesMonth);
-console.log('getAccumulatedMonth: ', getAccumulatedMonth(money, cost1, cost2, getExpensesMonth));
+accumulatedMonth = getAccumulatedMonth(money, cost1, cost2, getExpensesMonth);
+budgetDay = Math.floor(accumulatedMonth / 30);
 
 //Вывод результатов
 showTypeOf(money);
@@ -69,12 +62,11 @@ showTypeOf(income);
 showTypeOf(deposit);
 
 console.log(addExpenses.length);
-console.log('Период равен ', period, ' месяцев');
+console.log('Период равен ', getTargetMonth(mission, accumulatedMonth), ' месяцев');
 console.log('Цель заработать ', mission, ' крон');
 console.log(addExpenses.toLowerCase());
 console.log(addExpenses.split(', '));
 console.log('Бюджет на день: ', budgetDay);
-console.log('Бюджет на месяц: ', budgetMonth);
+console.log('Бюджет на месяц: ', accumulatedMonth);
 console.log(getStatusIncome());
-//Условия вывода
 
