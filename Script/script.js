@@ -1,10 +1,62 @@
 'use strict';
 
+
 let isNumber = function(n){
-    return !isNaN(parseFloat(n)) && isFinite(n);
+    return !isNaN(parseFloat(n)) && isFinite(n) && n > 0 && n < 100;
+};
+
+let numberInput = function(){
+	let num;
+	do {
+			num = prompt('Введите ваш ответ от 1 до 100');
+	}
+	while (!isNumber(num));
+	return num;
+};
+
+function randomInteger(min, max) {
+	let rand = min + Math.random() * (max + 1 - min);
+	return Math.floor(rand);
 }
 
-let money,
+function game(){
+
+	let x = randomInteger(0, 100);
+
+	function answerComparison() {
+		let answer = +numberInput();
+		console.log('x: ', x);
+		console.log('answer: ', answer);
+		let confirmNext = function(){
+			let a = confirm('Продолжить?');
+			if (a === true){
+				answerComparison();
+			} else if (a === false){
+				alert('Слабак!=)');
+			}
+		};
+		if(answer > x){
+			alert('Загаданное число меньше');
+			confirmNext();
+		} else if (answer < x){
+			alert('Загаданное число больше');
+			confirmNext();
+		} else if (answer === x){
+			alert('Победа!!!');
+			let oneMore = confirm('Eще разок?');
+			if (oneMore === true){
+				game();
+			} else if (oneMore === false){
+				alert('Игра окончена!');
+			}
+		}
+	}
+	answerComparison();
+}
+game();
+
+
+/*let money,
 cost,
 income = 'Бригада', 
 mission = 80000, 
@@ -92,4 +144,4 @@ console.log(addExpenses.split(', '));
 console.log('Бюджет на день: ', budgetDay);
 console.log('Бюджет на месяц: ', accumulatedMonth);
 console.log(getStatusIncome());
-
+*/
