@@ -1,12 +1,32 @@
 'use strict';
 
+const startBtn = document.getElementById('start'),
+	btnPlusIncomeAdd = document.getElementsByTagName('button')[0],
+	btnPlusExpensesAdd = document.getElementsByTagName('button')[1],
+	depositCheckmark = document.querySelector('.deposit-checkmark'),
+	additionalIncomeItem1 = document.querySelectorAll('.additional_income-item')[0],
+	additionalIncomeItem2 = document.querySelectorAll('.additional_income-item')[1],
+	budgetMonthValue = document.getElementsByClassName('budget_month-value')[0],
+	budgetDayValue = document.getElementsByClassName('budget_day-value')[0],
+	expensesMonthValue = document.getElementsByClassName('expenses_month-value')[0],
+	additionalIncomeValue = document.getElementsByClassName('additional_income-value')[0],
+	additionalExpensesValue = document.getElementsByClassName('additional_expenses-value')[0],
+	incomePeriodValue = document.getElementsByClassName('income_period-value')[0],
+	targetMonthValue = document.getElementsByClassName('target_month-value')[0],
+	salaryAmount = document.querySelector('.salary-amount'),
+	incomeTitle = document.querySelectorAll('.income-title')[1],
+	incomeAmount = document.querySelector('.income-amount'),
+	expensesTitle = document.querySelector('.expenses-title'),
+	expensesAmount = document.querySelector('.expenses-amount'),
+	additionalExpensesItem = document.querySelector('.additional_expenses-item'),
+	depositAmount = document.querySelector('.deposit-amount'),
+	depositPercent = document.querySelector('.deposit-percent'),
+	targetAmount = document.querySelector('.target-amount'),
+	periodSelect = document.querySelector('.period-select');
+
 const isNumber = function(n){
 	return !isNaN(parseFloat(n)) && isFinite(n);
 };
-/*const isString = function(str){
-	return (/^\D*[0-9._%+-]/.test(str));
-	//return (/^[A-z0-9-_+. ,@]{1,}$/ig.test(str));
-};*/
 
 let money,
 start = function(){	
@@ -15,7 +35,7 @@ start = function(){
     } while (!isNumber(money));
 };
 start();
-
+	
 const appData = {
 	budget: money,
 	budgetDay: 0,
@@ -107,7 +127,16 @@ appData.asking();
 appData.getBudget();
 appData.getInfoDeposit();
 
-console.log('Расходы за месяц: ', appData.expensesMonth);
+console.log('startBtn: ', startBtn);
+console.log('btnPlusExpensesAdd: ', btnPlusExpensesAdd);
+console.log('depositCheckmark: ', depositCheckmark);
+console.log('additionalIncomeItem2: ', additionalIncomeItem2);
+console.log('budgetMonthValue: ', budgetMonthValue);
+console.log('salaryAmount: ', salaryAmount);
+console.log('incomeTitle: ', incomeTitle);
+console.log('additionalExpensesItem: ', additionalExpensesItem);
+console.log('periodSelect: ', periodSelect);
+/*console.log('Расходы за месяц: ', appData.expensesMonth);
 if (appData.getTargetMonth() > 0){
 	console.log('Период равен ', appData.getTargetMonth(), ' месяцев');
 } else {
@@ -121,7 +150,8 @@ for (let key in appData){
 
 console.log(appData);
 console.log(appData.addExpenses.map(n => `${n[0].toUpperCase()}${n.slice(1)}`).join(', '));
-		
+*/
+
 //--------------------------------------------Игра 6го урока---------------------------------------
 /*
 let isNumber = function(n){
