@@ -20,7 +20,7 @@ const sortElem = function(array) {
         const book = array[i];
         const bookNumber = readNumber(array[i]);
         const index = i;
-
+    
         bookArray.push({
             index,
             book,
