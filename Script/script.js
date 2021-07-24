@@ -77,6 +77,9 @@ const appData = {
 
 	},
 	reset: function(){
+		
+		const incomeItems = document.querySelectorAll('.income-items'),
+		expensesItems = document.querySelectorAll('.expenses-items');
 
 		this.budget = 0;
 		this.budgetDay = 0;
@@ -90,9 +93,6 @@ const appData = {
 		this.deposit = false;
 		this.percentDeposit = 0;
 		this.moneyDeposit = 0;
-
-		const incomeItems = document.querySelectorAll('.income-items'),
-			expensesItems = document.querySelectorAll('.expenses-items');	
 
 		incomeItems.forEach(function(item, index){
 			if(index !== 0){
@@ -297,7 +297,7 @@ const appData = {
 };
 
 startBtn.disabled = true;
-
+ 
 salaryAmount.addEventListener('input', appData.checkBadgetInput);
 
 appData.checkNumberInput(incomeAmount);
