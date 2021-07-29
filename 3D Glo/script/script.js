@@ -96,4 +96,9 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     togglePopup();
+
+    //Плавная прокрутка
+    const htmlPage = document.querySelector('html');
+
+    htmlPage.style.scrollBehavior = 'smooth';
 });
