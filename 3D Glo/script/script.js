@@ -237,6 +237,8 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+
+        
         slide.forEach((index) => {
             const li = document.createElement('li');
             li.classList.add('dot');
