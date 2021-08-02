@@ -253,4 +253,97 @@ window.addEventListener('DOMContentLoaded', () => {
 
     slider();
 
+    //hover изображения
+    const hoverImg = () => {
+        const imgList = document.querySelectorAll('.command__photo');
+
+        
+        imgList.forEach((elem) =>{
+            let initialSrc;
+            elem.addEventListener('mouseover', (e) => {
+                initialSrc = e.target.getAttribute('src');
+                e.target.src = e.target.dataset.img;
+            });
+            elem.addEventListener('mouseout', (e) => {
+                e.target.setAttribute('src', initialSrc);
+            });
+        });
+    };
+
+    hoverImg();
+
+    //фильтр и проверка заполняемых полей КАЛЬКУЛЯТОР
+    const calcInputFiltr = () => {
+        const calcItems = document.querySelectorAll('.calc-item');
+
+        calcItems.forEach((elem) => {
+            elem.addEventListener('blur', (e) => {
+                e.target.value = e.target.value.replace(/\D/g, '');
+            });
+        });
+    };
+
+    calcInputFiltr();
+
+    //фильтр и проверка заполняемых полей PopUp и формы опросника
+    const InputFiltr = () => {
+        const allInput = document.querySelectorAll('input');
+        let stringModify;
+
+        const stringTrim = (elem) => {
+            elem = elem.replace(/\-+/g, '-');
+            elem = elem.replace(/\s+/g, ' ').trim();
+            elem = elem.replace(/^\-/g, '');
+            elem = elem.replace(/\-$/g, '');
+            return elem;
+        };
+
+        const toUpper = (str) => {
+            return str
+                .toLowerCase()
+                .split(' ')
+                .map(function(word) {
+                    return word[0].toUpperCase() + word.substr(1);
+                })
+                .join(' ');
+        };
+
+        allInput.forEach((elem) => {
+            if (elem.getAttribute('name') === 'user_name'){
+                elem.addEventListener('blur', (e) => {
+                    stringModify = e.target.value;
+                    stringModify = stringModify.replace(/[^?!,.\-а-яё\s]/ig, '');
+                    stringModify = stringTrim(stringModify);
+                    stringModify = toUpper(stringModify);
+                    e.target.value = stringModify;
+                });
+            } else if (elem.getAttribute('name') === 'user_message'){
+                elem.addEventListener('blur', (e) => {
+                    stringModify = e.target.value;
+                    stringModify = stringModify.replace(/[^?!,.\-а-яё\s]/ig, '');
+                    stringModify = stringTrim(stringModify);
+                    e.target.value = stringModify; 
+                });
+            } else if (elem.getAttribute('name') === 'user_phone'){
+                elem.addEventListener('blur', (e) => {
+                    stringModify = e.target.value;
+                    stringModify = stringModify.replace(/[^\-()0-9]/ig, '');
+                    stringModify = stringTrim(stringModify);
+                    stringModify = '+' + stringModify;
+                    stringModify = stringModify.match(/\+?[78]([-()]*\d){10}/g);
+                    e.target.value = stringModify; 
+                });
+            } else if (elem.getAttribute('name') === 'user_email'){
+                elem.addEventListener('blur', (e) => {
+                    stringModify = e.target.value;
+                    stringModify = stringModify.replace(/[^a-z0-9\-\_\!\*\'\`\@\.]/ig, '');
+                    stringModify = stringModify.match(/\w+@\w+\.\w{2,3}/g);
+                    e.target.value = stringModify; 
+                });
+            }
+        });
+    };
+
+    InputFiltr();
+
 });
