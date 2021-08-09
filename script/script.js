@@ -401,28 +401,87 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //send-ajax-form
 
+    // const sendForm = (form) => {
+    //     const errorMessage = 'Что то пошло не так...',
+    //         loadMessage = 'Загрузка...',
+    //         successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+        
+    //     const postData = (body, outputData, errorData) => {
+    //         const request = new XMLHttpRequest();
+    //             request.addEventListener('readystatechange', () => {
+    //                 if (request.readyState !== 4){
+    //                     return;
+    //                 }
+    //                 if (request.status === 200){
+    //                     outputData();
+    //                 } else {
+    //                     errorData(request.status);
+    //                 }
+    //             });
+    //             request.open('POST', './server.php');
+    //             request.setRequestHeader('Content-Type', 'application/json');
+    //             request.send(JSON.stringify(body));
+    //     };
+
+    //     const statusMessage = document.createElement('div');
+    //     statusMessage.style.cssText = 'font-size: 2rem; color: #ffffff';
+    //     form.addEventListener('submit', (event) => {
+    //         event.preventDefault();
+    //         form.appendChild(statusMessage);
+    //         statusMessage.textContent = loadMessage;
+    //         const formData = new FormData(form);
+    //         let body = {};
+    //         formData.forEach((val, key) => {
+    //             body[key] = val;
+    //         });
+    //         postData(body, () => {
+    //             statusMessage.textContent = successMessage;
+    //             form.reset();
+    //         }, (error) => {
+    //             statusMessage.textContent = errorMessage;
+    //             console.error(error);
+    //             form.reset();
+    //         });
+    //     });
+    // };
+
+    // //Отправка данных по всем формам
+
+    // const sendAllForm = () => {
+    //     const allForms = document.querySelectorAll('form');
+    //     allForms.forEach((item) => {
+    //         sendForm(item);   
+    //     });
+    // };
+
+    // sendAllForm();
+
+
     const sendForm = (form) => {
         const errorMessage = 'Что то пошло не так...',
             loadMessage = 'Загрузка...',
             successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
         
-        const postData = (body, outputData, errorData) => {
-            const request = new XMLHttpRequest();
+        const postData = (body) => {
+
+            return new Promise((resolve, reject) => {
+                const request = new XMLHttpRequest();
                 request.addEventListener('readystatechange', () => {
                     if (request.readyState !== 4){
                         return;
                     }
                     if (request.status === 200){
-                        outputData();
+                        resolve();
                     } else {
-                        errorData(request.status);
+                        reject(request.status);
                     }
                 });
                 request.open('POST', './server.php');
                 request.setRequestHeader('Content-Type', 'application/json');
                 request.send(JSON.stringify(body));
+            });  
         };
-
+        
         const statusMessage = document.createElement('div');
         statusMessage.style.cssText = 'font-size: 2rem; color: #ffffff';
         form.addEventListener('submit', (event) => {
@@ -434,14 +493,15 @@ window.addEventListener('DOMContentLoaded', () => {
             formData.forEach((val, key) => {
                 body[key] = val;
             });
-            postData(body, () => {
-                statusMessage.textContent = successMessage;
-                form.reset();
-            }, (error) => {
-                statusMessage.textContent = errorMessage;
-                console.error(error);
-                form.reset();
-            });
+            postData(body)
+                .then(() => {
+                    statusMessage.textContent = successMessage;
+                },)
+                .catch((error) => {
+                    statusMessage.textContent = errorMessage;
+                    console.error(error);
+                })
+                .finally(form.reset());
         });
     };
 
@@ -455,6 +515,5 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     sendAllForm();
-
 });
 
